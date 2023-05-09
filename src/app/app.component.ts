@@ -15,9 +15,24 @@ import {
 export class AppComponent implements OnInit {
   ngOnInit(): void {}
 
+  version = true;
+  changeVersion(val: boolean) {
+    if (val) {
+      this.version = true;
+      document.getElementById('version2')?.classList.remove('btn-active');
+      document.getElementById('version1')?.classList.add('btn-active');
+    } else {
+      this.version = false;
+      document.getElementById('version1')?.classList.remove('btn-active');
+      document.getElementById('version2')?.classList.add('btn-active');
+    }
+  }
+
   title = 'kanban-fire';
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog) {
+    this.changeVersion(true);
+  }
   todo: Task[] = [
     {
       title: 'Buy milk',
@@ -28,8 +43,18 @@ export class AppComponent implements OnInit {
       description: 'Using Firebase and Angular create a Kanban app!',
     },
   ];
-  inProgress: Task[] = [];
-  done: Task[] = [];
+  inProgress: Task[] = [
+    {
+      title: 'Add a feature',
+      description: 'Connect Firebase!',
+    },
+  ];
+  done: Task[] = [
+    {
+      title: 'Learn',
+      description: 'Learn Angular Beginner and Advanced Concepts',
+    },
+  ];
 
   editTask(list: 'done' | 'todo' | 'inProgress', task: Task): void {
     const dialogRef = this.dialog.open(TaskDialogComponent, {
